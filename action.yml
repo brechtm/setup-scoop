@@ -31,7 +31,7 @@ runs:
     - name: 'Setup scoop'
       shell: pwsh
       run: |
-        if('${{ inputs.install_scoop }}' -eq 'true') {iex (New-Object net.webclient).downloadstring('https://get.scoop.sh')}
+        if('${{ inputs.install_scoop }}' -eq 'true') {Invoke-Expression "& { $(Invoke-RestMethod https://get.scoop.sh) } -RunAsAdmin"}
         if('${{ inputs.update_path }}' -eq 'true') {Join-Path (Resolve-Path ~).Path "scoop\shims" >> $Env:GITHUB_PATH}
         if('${{ inputs.add_extras_bucket }}' -eq 'true') {scoop bucket add extras}
         if('${{ inputs.add_nonportable_bucket }}' -eq 'true') {scoop bucket add nonportable}
